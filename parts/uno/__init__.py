@@ -5,9 +5,8 @@ def run(event, context):
     body = {
         'msg': 'hello world'
     }
-    resp = {
+    return {
         'statusCode': 200,
         'headers': {},
         'body': json.dumps(body)
     }
-    return resp
