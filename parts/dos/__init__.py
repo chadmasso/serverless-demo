@@ -12,9 +12,8 @@ import json
 
 
 def run(event, context):
-    body = {
-        'msg': 'hello world'
-    }
+    params = event.get('queryStringParameters', {})
+    q = params.get('q')
 
     api = twitter.Api(
         consumer_key=TWITTER_CONSUMER_KEY,
@@ -23,7 +22,7 @@ def run(event, context):
         access_token_secret=TWITTER_SECRET
     )
 
-    statuses = api.GetSearch(term='#NationalPancakeDay', count=100)
+    statuses = api.GetSearch(term=q, count=100)
     status_texts = []
     for status in statuses:
         status_texts.append(status.text)
