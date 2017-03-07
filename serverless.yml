@@ -1,0 +1,17 @@
+service: serverless-demo
+
+
+provider:
+  name: aws
+  runtime: python2.7
+  profile: sandbox
+
+
+functions:
+
+  uno:
+    handler: router.uno
+    events:
+      - http:
+            path: demo/uno
+            method: get
