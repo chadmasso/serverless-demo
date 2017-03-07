@@ -7,3 +7,8 @@ def uno(a, b):
 def dos(a, b):
     from parts.dos import run
     return run(a, b)
+
+
+def tres(a, b):
+    from parts.tres import run
+    return run(a, b)

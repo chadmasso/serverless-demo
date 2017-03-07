@@ -1,1 +1,2 @@
 python-twitter==3.2.1
+watson-developer-cloud==0.25.1
