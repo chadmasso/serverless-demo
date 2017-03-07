@@ -21,3 +21,9 @@ functions:
       - http:
             path: demo/dos
             method: get
+  tres:
+    handler: router.tres
+    events:
+      - http:
+            path: demo/tres
+            method: get
