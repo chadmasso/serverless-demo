@@ -10,6 +10,19 @@ import settings
 
 import twitter
 from watson_developer_cloud import ToneAnalyzerV3
+from slacker import Slacker
+
+
+def send_slack(emotion):
+    slack = Slacker(settings.SLACK_BOT_KEY)
+
+    text = 'People mainly feel %s about chipotle' % emotion
+    params = {
+        'channel': '#serverless-demo',
+        'text': text,
+        'as_user': True,
+    }
+    slack.chat.post_message(**params)
 
 
 def emotion_sort(a, b):
@@ -21,8 +34,7 @@ def emotion_sort(a, b):
 
 
 def run(event, context):
-    params = event.get('queryStringParameters', {})
-    q = params.get('q', '#NationalPancakeDay')
+    q = '@ChipotleTweets'
 
     api = twitter.Api(
         consumer_key=settings.TWITTER_CONSUMER_KEY,
@@ -46,12 +58,5 @@ def run(event, context):
     emotion_tones = tones['document_tone']['tone_categories'][0]['tones']
     emotion_tones.sort(emotion_sort)
 
-    body = {
-        'tones': emotion_tones,
-        'main_emotion': emotion_tones[0]['tone_name']
-    }
-    return {
-        'statusCode': 200,
-        'headers': {},
-        'body': json.dumps(body)
-    }
+    main_emotion = emotion_tones[0]['tone_name']
+    send_slack(main_emotion)

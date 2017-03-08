@@ -12,3 +12,8 @@ def dos(a, b):
 def tres(a, b):
     from parts.tres import run
     return run(a, b)
+
+
+def cuatro(a, b):
+    from parts.cuatro import run
+    return run(a, b)

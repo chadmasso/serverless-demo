@@ -27,3 +27,5 @@ functions:
       - http:
             path: demo/tres
             method: get
+  cuatro:
+    handler: router.cuatro
